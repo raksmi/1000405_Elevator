@@ -11,18 +11,14 @@ from sklearn.preprocessing import StandardScaler
 import warnings
 warnings.filterwarnings('ignore')
 
-# ================================
-# PAGE CONFIGURATION
-# ================================
+
 st.set_page_config(
     page_title="Smart Elevator Monitoring Dashboard",
     page_icon="🛗",
     layout="wide"
 )
 
-# ================================
-# CUSTOM CSS
-# ================================
+
 st.markdown("""
 <style>
     .main-header {
