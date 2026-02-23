@@ -94,7 +94,7 @@ st.divider()
 # ================================
 # LOAD DATA FROM EXISTING FILE
 # ================================
-csv_file_path = "elevator_data.csv"
+csv_file_path = "Elevator predictive-maintenance-dataset.csv"
 
 try:
     df = pd.read_csv(csv_file_path)
