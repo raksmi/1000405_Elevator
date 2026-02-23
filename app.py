@@ -146,7 +146,7 @@ st.markdown("""
 # ================================
 # SIDEBAR WITH LOGO AND CONTROLS
 # ================================
-st.sidebar.image("elevator_logo.png", width=200)
+st.sidebar.image("LIFTBOT.png", width=200)
 
 st.sidebar.markdown("""
 <div class="blue-section">
@@ -191,7 +191,7 @@ mode = st.sidebar.radio(
 # ================================
 # LOAD DATA FROM EXISTING FILE
 # ================================
-csv_file_path = "elevator_data.csv"
+csv_file_path = "Elevator predictive-maintenance-dataset.csv"
 
 try:
     df = pd.read_csv(csv_file_path)
