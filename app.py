@@ -21,13 +21,6 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    .main-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 2rem;
-        border-radius: 10px;
-        color: white;
-        margin-bottom: 2rem;
-    }
     .metric-card {
         background: white;
         padding: 1.5rem;
@@ -35,20 +28,57 @@ st.markdown("""
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         margin: 0.5rem;
     }
+    .alert-info {
+        background: #dbeafe;
+        border-left: 4px solid #2563eb;
+        padding: 1rem;
+        border-radius: 5px;
+    }
     .alert-warning {
         background: #fef3c7;
         border-left: 4px solid #d97706;
         padding: 1rem;
         border-radius: 5px;
     }
+    .alert-success {
+        background: #d1fae5;
+        border-left: 4px solid #059669;
+        padding: 1rem;
+        border-radius: 5px;
+    }
+    .blue-section {
+        background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        padding: 1.5rem;
+        border-radius: 10px;
+        color: white;
+        margin-bottom: 1.5rem;
+    }
+    .blue-card {
+        background: #eff6ff;
+        border: 2px solid #3b82f6;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin: 0.5rem;
+    }
+    .blue-button {
+        background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
 </style>
 """, unsafe_allow_html=True)
 
 # ================================
-# TITLE AND INTRODUCTION
+# LOGO AND TITLE
 # ================================
+# Display logo image
+st.image("elevator_logo.png", width=200, caption="Smart Elevator Monitoring System")
+
 st.markdown("""
-<div class="main-header">
+<div class="blue-section">
     <h1>🛗 Smart Elevator Monitoring Dashboard</h1>
     <p>Predictive Maintenance & Sensor-Based Elevator Monitoring</p>
 </div>
@@ -62,25 +92,26 @@ supporting smarter maintenance decisions.
 st.divider()
 
 # ================================
-# FILE UPLOAD
+# LOAD DATA FROM EXISTING FILE
 # ================================
-st.sidebar.header("📂 Upload Dataset")
+csv_file_path = "elevator_data.csv"
 
-uploaded_file = st.sidebar.file_uploader(
-    "Upload your Elevator CSV file",
-    type=["csv"]
-)
-
-if uploaded_file is None:
-    st.warning("Please upload your elevator dataset CSV file to continue.")
+try:
+    df = pd.read_csv(csv_file_path)
+    st.markdown(f"""
+    <div class="alert-success">
+        <strong>✅ Dataset Loaded Successfully!</strong><br>
+        File: {csv_file_path}
+    </div>
+    """, unsafe_allow_html=True)
+except FileNotFoundError:
+    st.markdown(f"""
+    <div class="alert-warning">
+        <strong>⚠️ Dataset Not Found!</strong><br>
+        Please ensure the file '{csv_file_path}' exists in the same directory.
+    </div>
+    """, unsafe_allow_html=True)
     st.stop()
-
-# ================================
-# LOAD DATA
-# ================================
-df = pd.read_csv(uploaded_file)
-
-st.success("✅ Dataset Uploaded Successfully!")
 
 # ================================
 # DATA VALIDATION
@@ -91,7 +122,12 @@ required_columns = ['ID', 'revolutions', 'humidity', 'vibration', 'x1', 'x2', 'x
 missing_columns = [col for col in required_columns if col not in df.columns]
 
 if missing_columns:
-    st.error(f"Missing required columns: {', '.join(missing_columns)}")
+    st.markdown(f"""
+    <div class="alert-warning">
+        <strong>❌ Missing Required Columns:</strong><br>
+        {', '.join(missing_columns)}
+    </div>
+    """, unsafe_allow_html=True)
     st.stop()
 
 # ================================
@@ -141,11 +177,11 @@ if mode == "Dashboard Analysis":
     
     with col1:
         avg_vibration = df['vibration'].mean()
-        st.metric("Average Vibration", f"{avg_vibration:.3f}")
+        st.metric("Average Vibration", f"{avg_vibration:.3f}", delta_color="inverse")
     
     with col2:
         max_vibration = df['vibration'].max()
-        st.metric("Maximum Vibration", f"{max_vibration:.3f}")
+        st.metric("Maximum Vibration", f"{max_vibration:.3f}", delta_color="inverse")
     
     with col3:
         avg_humidity = df['humidity'].mean()
@@ -189,14 +225,15 @@ if mode == "Dashboard Analysis":
     # ========================
     st.header("📈 Exploratory Data Analysis Visualizations")
     
-    # 1. LINE PLOT (ID vs Vibration)
+    # 1. LINE PLOT (ID vs Vibration) - Blue theme
     st.subheader("1️⃣ Vibration Over Time (Line Plot)")
     
     fig1 = px.line(
         df,
         x="ID",
         y="vibration",
-        title="Vibration Trend Over Time (ID vs Vibration)"
+        title="Vibration Trend Over Time (ID vs Vibration)",
+        color_discrete_sequence=['#2563eb']
     )
     
     # Add threshold line
@@ -207,9 +244,14 @@ if mode == "Dashboard Analysis":
         annotation_text=f"Threshold: {vibration_threshold:.3f}"
     )
     
+    fig1.update_layout(
+        plot_bgcolor='#f0f9ff',
+        paper_bgcolor='white'
+    )
+    
     st.plotly_chart(fig1, use_container_width=True)
     
-    # 2. HISTOGRAM (Humidity Distribution)
+    # 2. HISTOGRAM (Humidity Distribution) - Blue theme
     st.subheader("2️⃣ Humidity Distribution (Histogram)")
     
     fig2 = px.histogram(
@@ -219,9 +261,13 @@ if mode == "Dashboard Analysis":
         nbins=50,
         color_discrete_sequence=['#3b82f6']
     )
+    fig2.update_layout(
+        plot_bgcolor='#f0f9ff',
+        paper_bgcolor='white'
+    )
     st.plotly_chart(fig2, use_container_width=True)
     
-    # 3. HISTOGRAM (Revolutions Distribution)
+    # 3. HISTOGRAM (Revolutions Distribution) - Blue theme
     st.subheader("3️⃣ Revolutions Distribution (Histogram)")
     
     fig3 = px.histogram(
@@ -229,11 +275,15 @@ if mode == "Dashboard Analysis":
         x="revolutions",
         title="Revolutions Distribution",
         nbins=50,
-        color_discrete_sequence=['#10b981']
+        color_discrete_sequence=['#1e40af']
+    )
+    fig3.update_layout(
+        plot_bgcolor='#f0f9ff',
+        paper_bgcolor='white'
     )
     st.plotly_chart(fig3, use_container_width=True)
     
-    # 4. SCATTER PLOT (Revolutions vs Vibration)
+    # 4. SCATTER PLOT (Revolutions vs Vibration) - Blue theme
     st.subheader("4️⃣ Revolutions vs Vibration (Scatter Plot)")
     
     fig4 = px.scatter(
@@ -242,7 +292,7 @@ if mode == "Dashboard Analysis":
         y="vibration",
         trendline="ols",
         title="Revolutions vs Vibration Relationship",
-        color_discrete_sequence=['#8b5cf6']
+        color_discrete_sequence=['#2563eb']
     )
     
     # Add threshold line
@@ -252,24 +302,38 @@ if mode == "Dashboard Analysis":
         line_color="red"
     )
     
+    fig4.update_layout(
+        plot_bgcolor='#f0f9ff',
+        paper_bgcolor='white'
+    )
+    
     st.plotly_chart(fig4, use_container_width=True)
     
-    # 5. BOX PLOT (x1, x2, x3, x4, x5)
+    # 5. BOX PLOT (x1, x2, x3, x4, x5) - Blue theme
     st.subheader("5️⃣ Sensor Variability & Outliers (Box Plot)")
     
     sensor_cols = ['x1', 'x2', 'x3', 'x4', 'x5']
     sensor_data = df[sensor_cols].melt(var_name='Sensor', value_name='Value')
+    
+    # Create blue color palette for sensors
+    blue_colors = ['#1e3a8a', '#1e40af', '#2563eb', '#3b82f6', '#60a5fa']
+    color_map = {sensor: blue_colors[i] for i, sensor in enumerate(sensor_cols)}
     
     fig5 = px.box(
         sensor_data,
         x='Sensor',
         y='Value',
         title="Box Plot of Sensor Readings (x1-x5)",
-        color='Sensor'
+        color='Sensor',
+        color_discrete_map=color_map
+    )
+    fig5.update_layout(
+        plot_bgcolor='#f0f9ff',
+        paper_bgcolor='white'
     )
     st.plotly_chart(fig5, use_container_width=True)
     
-    # 6. CORRELATION HEATMAP
+    # 6. CORRELATION HEATMAP - Blue theme
     st.subheader("6️⃣ Correlation Heatmap (All Numeric Columns)")
     
     # Calculate correlation matrix
@@ -279,18 +343,20 @@ if mode == "Dashboard Analysis":
         z=corr_matrix.values,
         x=corr_matrix.columns,
         y=corr_matrix.columns,
-        colorscale='RdBu',
+        colorscale='Blues',
         zmid=0,
         text=np.round(corr_matrix.values, 2),
         texttemplate="%{text}",
-        textfont={"size": 10},
+        textfont={"size": 10, "color": "black"},
         colorbar=dict(title="Correlation")
     ))
     
     fig6.update_layout(
         title="Correlation Heatmap of All Numeric Features",
         width=800,
-        height=700
+        height=700,
+        plot_bgcolor='#f0f9ff',
+        paper_bgcolor='white'
     )
     st.plotly_chart(fig6, use_container_width=True)
 
@@ -335,8 +401,12 @@ elif mode == "Predictive Maintenance":
             
             st.session_state.feature_importance = feature_importance
             
-        st.success("✅ ML Models trained successfully!")
-        st.info(f"High vibration threshold (75th percentile): {threshold_75th:.3f}")
+        st.markdown(f"""
+        <div class="alert-success">
+            <strong>✅ ML Models trained successfully!</strong><br>
+            High vibration threshold (75th percentile): {threshold_75th:.3f}
+        </div>
+        """, unsafe_allow_html=True)
     
     # Display results if model is trained
     if 'model_trained' in st.session_state and st.session_state.model_trained:
@@ -352,7 +422,11 @@ elif mode == "Predictive Maintenance":
                 orientation='h',
                 title="Key Factors Influencing High Vibration",
                 color='Importance',
-                color_continuous_scale='Viridis'
+                color_continuous_scale='Blues'
+            )
+            fig_importance.update_layout(
+                plot_bgcolor='#f0f9ff',
+                paper_bgcolor='white'
             )
             st.plotly_chart(fig_importance, use_container_width=True)
         
@@ -373,19 +447,28 @@ elif mode == "Predictive Maintenance":
             
             anomaly_count = anomaly_df['Is_Anomaly'].sum()
             
+            # Blue theme for anomaly plot
             fig_anomaly = px.scatter(
                 anomaly_df,
                 x='ID',
                 y='Anomaly_Score',
                 color='Is_Anomaly',
                 title=f"Anomaly Detection Results ({anomaly_count} anomalies detected)",
-                color_discrete_map={True: 'red', False: 'blue'},
+                color_discrete_map={True: '#dc2626', False: '#2563eb'},
                 labels={'Is_Anomaly': 'Anomaly', 'Anomaly_Score': 'Anomaly Score'}
+            )
+            fig_anomaly.update_layout(
+                plot_bgcolor='#f0f9ff',
+                paper_bgcolor='white'
             )
             
             st.plotly_chart(fig_anomaly, use_container_width=True)
             
-            st.info(f"Anomaly Detection: {anomaly_count} anomalies found out of {len(df)} samples")
+            st.markdown(f"""
+            <div class="alert-info">
+                <strong>Anomaly Detection:</strong> {anomaly_count} anomalies found out of {len(df)} samples
+            </div>
+            """, unsafe_allow_html=True)
         
         # Display anomalous samples
         st.subheader("📋 Anomalous Samples")
@@ -398,7 +481,11 @@ elif mode == "Predictive Maintenance":
             st.info("No anomalous samples detected.")
     
     else:
-        st.info("👈 Click 'Train Predictive Models' to begin analysis.")
+        st.markdown("""
+        <div class="alert-info">
+            <strong>👈 Click 'Train Predictive Models' to begin analysis.</strong>
+        </div>
+        """, unsafe_allow_html=True)
 
 # ================================
 # DATA SUMMARY
@@ -409,17 +496,29 @@ st.header("📋 Dataset Summary")
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.write("### Dataset Info")
-    st.write(f"**Rows:** {len(df)}")
-    st.write(f"**Columns:** {len(df.columns)}")
-    st.write(f"**Duplicates Removed:** {duplicates}")
+    st.markdown("""
+    <div class="blue-card">
+        <h4>Dataset Info</h4>
+        <p><strong>Rows:</strong> {}</p>
+        <p><strong>Columns:</strong> {}</p>
+        <p><strong>Duplicates Removed:</strong> {}</p>
+    </div>
+    """.format(len(df), len(df.columns), duplicates), unsafe_allow_html=True)
 
 with col2:
-    st.write("### First 5 Rows")
+    st.markdown("""
+    <div class="blue-card">
+        <h4>First 5 Rows</h4>
+    </div>
+    """, unsafe_allow_html=True)
     st.dataframe(df.head())
 
 with col3:
-    st.write("### Column Names")
+    st.markdown("""
+    <div class="blue-card">
+        <h4>Column Names</h4>
+    </div>
+    """, unsafe_allow_html=True)
     st.write(df.columns.tolist())
 
 # ================================
@@ -427,7 +526,7 @@ with col3:
 # ================================
 st.divider()
 st.markdown("""
-<div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+<div class="blue-section">
     <h4>🛗 Smart Elevator Monitoring System</h4>
     <p>Predictive Maintenance & Sensor-Based Elevator Monitoring</p>
 </div>
