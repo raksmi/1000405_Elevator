@@ -21,117 +21,164 @@ st.set_page_config(
 
 st.markdown("""
 <style>
+    /* Force blue theme everywhere */
+    :root {
+        --primary-color: #2563eb;
+        --secondary-color: #1e40af;
+        --accent-color: #3b82f6;
+        --light-blue: #dbeafe;
+        --medium-blue: #eff6ff;
+        --dark-blue: #1e3a8a;
+    }
+    
+    .stApp {
+        background-color: #eff6ff !important;
+    }
+    
     .metric-card {
         background: white;
         padding: 1.5rem;
         border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         margin: 0.5rem;
+        border: 2px solid #3b82f6;
     }
+    
     .alert-info {
         background: #dbeafe;
         border-left: 4px solid #2563eb;
         padding: 1rem;
         border-radius: 5px;
+        border: 2px solid #3b82f6;
     }
+    
     .alert-warning {
         background: #fef3c7;
         border-left: 4px solid #d97706;
         padding: 1rem;
         border-radius: 5px;
     }
+    
     .alert-success {
-        background: #d1fae5;
-        border-left: 4px solid #059669;
+        background: #dbeafe;
+        border-left: 4px solid #1e40af;
         padding: 1rem;
         border-radius: 5px;
+        border: 2px solid #3b82f6;
     }
+    
     .blue-section {
         background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
         padding: 1.5rem;
         border-radius: 10px;
         color: white;
         margin-bottom: 1.5rem;
+        box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
     }
+    
     .blue-card {
         background: #eff6ff;
-        border: 2px solid #3b82f6;
+        border: 3px solid #3b82f6;
         padding: 1.5rem;
         border-radius: 10px;
         margin: 0.5rem;
     }
-    .blue-button {
+    
+    /* Sidebar styling */
+    .css-1d391kg {
+        background-color: #dbeafe !important;
+    }
+    
+    /* Headers styling - ensure all text is visible */
+    h1, h2, h3, h4, h5, h6 {
+        color: #1e40af !important;
+        font-weight: bold !important;
+        text-shadow: 0px 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    /* Text visibility - ensure all text is visible */
+    p, span, div, label, .stText {
+        color: #1e3a8a !important;
+        font-weight: 500 !important;
+    }
+    
+    /* Ensure metric text is visible */
+    [data-testid="stMetricValue"] {
+        color: #1e40af !important;
+        font-size: 28px !important;
+        font-weight: bold !important;
+    }
+    
+    [data-testid="stMetricLabel"] {
+        color: #2563eb !important;
+        font-size: 16px !important;
+        font-weight: bold !important;
+    }
+    
+    /* Button styling */
+    .stButton > button {
         background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
         color: white;
         border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
+        padding: 12px 24px;
+        border-radius: 8px;
         font-weight: bold;
+        font-size: 16px;
+        box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+    }
+    
+    .stButton > button:hover {
+        background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+    }
+    
+    /* Slider styling */
+    .stSlider > div > div > div {
+        background: #3b82f6;
+    }
+    
+    /* Ensure headers in cards are visible */
+    h3, h4 {
+        color: #1e40af !important;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # ================================
-# LOGO AND TITLE
+# SIDEBAR WITH LOGO AND CONTROLS
 # ================================
-# Display logo image
-st.image("LIFTBOT.png", width=200, caption="Smart Elevator Monitoring System")
+st.sidebar.image("elevator_logo.png", width=200)
 
+st.sidebar.markdown("""
+<div class="blue-section">
+    <h3 style="color: white !important; font-size: 20px;">🛗 Smart Elevator Monitoring</h3>
+    <p style="font-size: 14px; color: white; font-weight: 500;">Predictive Maintenance Dashboard</p>
+</div>
+""", unsafe_allow_html=True)
+
+st.sidebar.divider()
+
+# ================================
+# MAIN TITLE
+# ================================
 st.markdown("""
 <div class="blue-section">
-    <h1>🛗 Smart Elevator Monitoring Dashboard</h1>
-    <p>Predictive Maintenance & Sensor-Based Elevator Monitoring</p>
+    <h1 style="color: white !important; font-size: 32px; margin: 0;">🛗 Smart Elevator Monitoring Dashboard</h1>
+    <p style="color: white !important; font-size: 18px; margin: 10px 0 0 0;">Predictive Maintenance &amp; Sensor-Based Elevator Monitoring</p>
 </div>
 """, unsafe_allow_html=True)
 
 st.markdown("""
-This dashboard analyzes elevator sensor readings including **humidity, revolutions, and vibration**, 
+<p style="color: #1e3a8a !important; font-size: 16px; font-weight: 500;">
+This dashboard analyzes elevator sensor readings including 
+<strong style="color: #1e40af !important;">humidity, revolutions, and vibration</strong>, 
 supporting smarter maintenance decisions.
-""")
+</p>
+""", unsafe_allow_html=True)
 
 st.divider()
 
 # ================================
-# LOAD DATA FROM EXISTING FILE
-# ================================
-csv_file_path = "Elevator predictive-maintenance-dataset.csv"
-
-try:
-    df = pd.read_csv(csv_file_path)
-    st.markdown(f"""
-    <div class="alert-success">
-        <strong>✅ Dataset Loaded Successfully!</strong><br>
-        File: {csv_file_path}
-    </div>
-    """, unsafe_allow_html=True)
-except FileNotFoundError:
-    st.markdown(f"""
-    <div class="alert-warning">
-        <strong>⚠️ Dataset Not Found!</strong><br>
-        Please ensure the file '{csv_file_path}' exists in the same directory.
-    </div>
-    """, unsafe_allow_html=True)
-    st.stop()
-
-# ================================
-# DATA VALIDATION
-# ================================
-required_columns = ['ID', 'revolutions', 'humidity', 'vibration', 'x1', 'x2', 'x3', 'x4', 'x5']
-
-# Check if all required columns are present
-missing_columns = [col for col in required_columns if col not in df.columns]
-
-if missing_columns:
-    st.markdown(f"""
-    <div class="alert-warning">
-        <strong>❌ Missing Required Columns:</strong><br>
-        {', '.join(missing_columns)}
-    </div>
-    """, unsafe_allow_html=True)
-    st.stop()
-
-# ================================
-# MODE SELECTION
+# MODE SELECTION IN SIDEBAR
 # ================================
 st.sidebar.header("🎯 Dashboard Mode")
 
@@ -142,21 +189,56 @@ mode = st.sidebar.radio(
 )
 
 # ================================
-# COMMON: DATA CLEANING
+# LOAD DATA FROM EXISTING FILE
 # ================================
-# Remove duplicates
+csv_file_path = "elevator_data.csv"
+
+try:
+    df = pd.read_csv(csv_file_path)
+    st.markdown(f"""
+    <div class="alert-success">
+        <strong style="color: #1e40af !important;">✅ Dataset Loaded Successfully!</strong><br>
+        <span style="color: #1e3a8a !important;">File: {csv_file_path}</span>
+    </div>
+    """, unsafe_allow_html=True)
+except FileNotFoundError:
+    st.markdown(f"""
+    <div class="alert-warning">
+        <strong style="color: #d97706 !important;">⚠️ Dataset Not Found!</strong><br>
+        <span style="color: #1e3a8a !important;">Please ensure the file '{csv_file_path}' exists in the same directory.</span>
+    </div>
+    """, unsafe_allow_html=True)
+    st.stop()
+
+# ================================
+# DATA VALIDATION
+# ================================
+required_columns = ['ID', 'revolutions', 'humidity', 'vibration', 'x1', 'x2', 'x3', 'x4', 'x5']
+
+missing_columns = [col for col in required_columns if col not in df.columns]
+
+if missing_columns:
+    st.markdown(f"""
+    <div class="alert-warning">
+        <strong style="color: #d97706 !important;">❌ Missing Required Columns:</strong><br>
+        <span style="color: #1e3a8a !important;">{', '.join(missing_columns)}</span>
+    </div>
+    """, unsafe_allow_html=True)
+    st.stop()
+
+# ================================
+# DATA CLEANING
+# ================================
 duplicates = df.duplicated().sum()
 df = df.drop_duplicates()
 
-# Check for missing values
 missing_values = df.isnull().sum().sum()
 
 if missing_values > 0:
     st.warning(f"Dataset contains {missing_values} missing values. Removing rows with missing data.")
     df = df.dropna()
 
-# Convert numeric columns safely
-numeric_cols = required_columns[1:]  # All columns except ID
+numeric_cols = required_columns[1:]
 for col in numeric_cols:
     df[col] = pd.to_numeric(df[col], errors='coerce')
 
@@ -168,9 +250,7 @@ df = df.dropna()
 if mode == "Dashboard Analysis":
     st.header("📊 Dashboard Analysis")
     
-    # ========================
     # KEY METRICS
-    # ========================
     st.subheader("📌 Key Performance Metrics")
     
     col1, col2, col3, col4 = st.columns(4)
@@ -193,9 +273,7 @@ if mode == "Dashboard Analysis":
     
     st.divider()
     
-    # ========================
     # VIBRATION THRESHOLD SLIDER
-    # ========================
     st.subheader("⚙️ Vibration Threshold Filter")
     
     vibration_threshold = st.slider(
@@ -205,27 +283,29 @@ if mode == "Dashboard Analysis":
         float(df['vibration'].quantile(0.75))
     )
     
-    # Filter data based on threshold
     high_vibration_data = df[df['vibration'] > vibration_threshold]
     
-    st.write(f"Samples with vibration above **{vibration_threshold:.3f}**: {len(high_vibration_data)}")
+    st.markdown(f"""
+    <p style="color: #1e3a8a !important; font-size: 16px; font-weight: 500;">
+        Samples with vibration above <strong style="color: #1e40af !important;">{vibration_threshold:.3f}</strong>: {len(high_vibration_data)}
+    </p>
+    """, unsafe_allow_html=True)
     
     if len(high_vibration_data) > 0:
         st.markdown(f"""
         <div class="alert-warning">
-            <strong>⚠️ High Vibration Alert:</strong> {len(high_vibration_data)} samples exceed the threshold.
-            These may indicate mechanical issues requiring attention.
+            <strong style="color: #d97706 !important;">⚠️ High Vibration Alert:</strong> 
+            <span style="color: #1e3a8a !important;">{len(high_vibration_data)} samples exceed the threshold.</span><br>
+            <span style="color: #1e3a8a !important;">These may indicate mechanical issues requiring attention.</span>
         </div>
         """, unsafe_allow_html=True)
     
     st.divider()
     
-    # ========================
-    # REQUIRED VISUALIZATIONS
-    # ========================
+    # EXPLORATORY DATA ANALYSIS VISUALIZATIONS
     st.header("📈 Exploratory Data Analysis Visualizations")
     
-    # 1. LINE PLOT (ID vs Vibration) - Blue theme
+    # 1. LINE PLOT
     st.subheader("1️⃣ Vibration Over Time (Line Plot)")
     
     fig1 = px.line(
@@ -236,7 +316,6 @@ if mode == "Dashboard Analysis":
         color_discrete_sequence=['#2563eb']
     )
     
-    # Add threshold line
     fig1.add_hline(
         y=vibration_threshold,
         line_dash="dash",
@@ -246,12 +325,14 @@ if mode == "Dashboard Analysis":
     
     fig1.update_layout(
         plot_bgcolor='#f0f9ff',
-        paper_bgcolor='white'
+        paper_bgcolor='white',
+        title_font=dict(color='#1e40af', size=20),
+        font=dict(color='#1e3a8a')
     )
     
     st.plotly_chart(fig1, use_container_width=True)
     
-    # 2. HISTOGRAM (Humidity Distribution) - Blue theme
+    # 2. HISTOGRAM
     st.subheader("2️⃣ Humidity Distribution (Histogram)")
     
     fig2 = px.histogram(
@@ -263,11 +344,13 @@ if mode == "Dashboard Analysis":
     )
     fig2.update_layout(
         plot_bgcolor='#f0f9ff',
-        paper_bgcolor='white'
+        paper_bgcolor='white',
+        title_font=dict(color='#1e40af', size=20),
+        font=dict(color='#1e3a8a')
     )
     st.plotly_chart(fig2, use_container_width=True)
     
-    # 3. HISTOGRAM (Revolutions Distribution) - Blue theme
+    # 3. HISTOGRAM
     st.subheader("3️⃣ Revolutions Distribution (Histogram)")
     
     fig3 = px.histogram(
@@ -279,11 +362,13 @@ if mode == "Dashboard Analysis":
     )
     fig3.update_layout(
         plot_bgcolor='#f0f9ff',
-        paper_bgcolor='white'
+        paper_bgcolor='white',
+        title_font=dict(color='#1e40af', size=20),
+        font=dict(color='#1e3a8a')
     )
     st.plotly_chart(fig3, use_container_width=True)
     
-    # 4. SCATTER PLOT (Revolutions vs Vibration) - Blue theme
+    # 4. SCATTER PLOT
     st.subheader("4️⃣ Revolutions vs Vibration (Scatter Plot)")
     
     fig4 = px.scatter(
@@ -295,7 +380,6 @@ if mode == "Dashboard Analysis":
         color_discrete_sequence=['#2563eb']
     )
     
-    # Add threshold line
     fig4.add_hline(
         y=vibration_threshold,
         line_dash="dash",
@@ -304,18 +388,19 @@ if mode == "Dashboard Analysis":
     
     fig4.update_layout(
         plot_bgcolor='#f0f9ff',
-        paper_bgcolor='white'
+        paper_bgcolor='white',
+        title_font=dict(color='#1e40af', size=20),
+        font=dict(color='#1e3a8a')
     )
     
     st.plotly_chart(fig4, use_container_width=True)
     
-    # 5. BOX PLOT (x1, x2, x3, x4, x5) - Blue theme
+    # 5. BOX PLOT
     st.subheader("5️⃣ Sensor Variability & Outliers (Box Plot)")
     
     sensor_cols = ['x1', 'x2', 'x3', 'x4', 'x5']
     sensor_data = df[sensor_cols].melt(var_name='Sensor', value_name='Value')
     
-    # Create blue color palette for sensors
     blue_colors = ['#1e3a8a', '#1e40af', '#2563eb', '#3b82f6', '#60a5fa']
     color_map = {sensor: blue_colors[i] for i, sensor in enumerate(sensor_cols)}
     
@@ -329,14 +414,15 @@ if mode == "Dashboard Analysis":
     )
     fig5.update_layout(
         plot_bgcolor='#f0f9ff',
-        paper_bgcolor='white'
+        paper_bgcolor='white',
+        title_font=dict(color='#1e40af', size=20),
+        font=dict(color='#1e3a8a')
     )
     st.plotly_chart(fig5, use_container_width=True)
     
-    # 6. CORRELATION HEATMAP - Blue theme
+    # 6. CORRELATION HEATMAP
     st.subheader("6️⃣ Correlation Heatmap (All Numeric Columns)")
     
-    # Calculate correlation matrix
     corr_matrix = df[numeric_cols].corr()
     
     fig6 = go.Figure(data=go.Heatmap(
@@ -356,7 +442,9 @@ if mode == "Dashboard Analysis":
         width=800,
         height=700,
         plot_bgcolor='#f0f9ff',
-        paper_bgcolor='white'
+        paper_bgcolor='white',
+        title_font=dict(color='#1e40af', size=20),
+        font=dict(color='#1e3a8a')
     )
     st.plotly_chart(fig6, use_container_width=True)
 
@@ -366,34 +454,27 @@ if mode == "Dashboard Analysis":
 elif mode == "Predictive Maintenance":
     st.header("🔮 Predictive Maintenance")
     
-    # Train ML Model Button
     if st.button("🤖 Train Predictive Models"):
         st.session_state.model_trained = True
         
         with st.spinner("Training machine learning models..."):
-            # Prepare features
             features = ['revolutions', 'humidity', 'x1', 'x2', 'x3', 'x4', 'x5']
             X = df[features]
             
-            # Create target: High vibration (above 75th percentile)
             threshold_75th = df['vibration'].quantile(0.75)
             y = (df['vibration'] > threshold_75th).astype(int)
             
-            # Train RandomForestClassifier
             rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
             rf_model.fit(X, y)
             
-            # Train IsolationForest for anomaly detection
             iso_forest = IsolationForest(contamination=0.1, random_state=42)
             iso_forest.fit(X)
             
-            # Store models in session state
             st.session_state.rf_model = rf_model
             st.session_state.iso_forest = iso_forest
             st.session_state.features = features
             st.session_state.threshold_75th = threshold_75th
             
-            # Calculate feature importance
             feature_importance = pd.DataFrame({
                 'Feature': features,
                 'Importance': rf_model.feature_importances_
@@ -403,12 +484,11 @@ elif mode == "Predictive Maintenance":
             
         st.markdown(f"""
         <div class="alert-success">
-            <strong>✅ ML Models trained successfully!</strong><br>
-            High vibration threshold (75th percentile): {threshold_75th:.3f}
+            <strong style="color: #1e40af !important;">✅ ML Models trained successfully!</strong><br>
+            <span style="color: #1e3a8a !important;">High vibration threshold (75th percentile): {threshold_75th:.3f}</span>
         </div>
         """, unsafe_allow_html=True)
     
-    # Display results if model is trained
     if 'model_trained' in st.session_state and st.session_state.model_trained:
         col1, col2 = st.columns(2)
         
@@ -426,19 +506,19 @@ elif mode == "Predictive Maintenance":
             )
             fig_importance.update_layout(
                 plot_bgcolor='#f0f9ff',
-                paper_bgcolor='white'
+                paper_bgcolor='white',
+                title_font=dict(color='#1e40af', size=20),
+                font=dict(color='#1e3a8a')
             )
             st.plotly_chart(fig_importance, use_container_width=True)
         
         with col2:
             st.subheader("🎯 Anomaly Detection Results")
             
-            # Detect anomalies
             X = df[st.session_state.features]
             anomalies = st.session_state.iso_forest.predict(X)
             anomaly_scores = st.session_state.iso_forest.decision_function(X)
             
-            # Create anomaly dataframe
             anomaly_df = pd.DataFrame({
                 'ID': df['ID'],
                 'Anomaly_Score': anomaly_scores,
@@ -447,7 +527,6 @@ elif mode == "Predictive Maintenance":
             
             anomaly_count = anomaly_df['Is_Anomaly'].sum()
             
-            # Blue theme for anomaly plot
             fig_anomaly = px.scatter(
                 anomaly_df,
                 x='ID',
@@ -459,14 +538,17 @@ elif mode == "Predictive Maintenance":
             )
             fig_anomaly.update_layout(
                 plot_bgcolor='#f0f9ff',
-                paper_bgcolor='white'
+                paper_bgcolor='white',
+                title_font=dict(color='#1e40af', size=20),
+                font=dict(color='#1e3a8a')
             )
             
             st.plotly_chart(fig_anomaly, use_container_width=True)
             
             st.markdown(f"""
             <div class="alert-info">
-                <strong>Anomaly Detection:</strong> {anomaly_count} anomalies found out of {len(df)} samples
+                <strong style="color: #1e40af !important;">Anomaly Detection:</strong> 
+                <span style="color: #1e3a8a !important;">{anomaly_count} anomalies found out of {len(df)} samples</span>
             </div>
             """, unsafe_allow_html=True)
         
@@ -483,12 +565,12 @@ elif mode == "Predictive Maintenance":
     else:
         st.markdown("""
         <div class="alert-info">
-            <strong>👈 Click 'Train Predictive Models' to begin analysis.</strong>
+            <strong style="color: #1e40af !important;">👈 Click 'Train Predictive Models' to begin analysis.</strong>
         </div>
         """, unsafe_allow_html=True)
 
 # ================================
-# DATA SUMMARY
+# DATASET SUMMARY (NO SAMPLE DATA)
 # ================================
 st.divider()
 st.header("📋 Dataset Summary")
@@ -498,28 +580,30 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown("""
     <div class="blue-card">
-        <h4>Dataset Info</h4>
-        <p><strong>Rows:</strong> {}</p>
-        <p><strong>Columns:</strong> {}</p>
-        <p><strong>Duplicates Removed:</strong> {}</p>
+        <h4 style="color: #1e40af !important; font-size: 18px; margin-bottom: 15px;">Dataset Info</h4>
+        <p style="color: #1e3a8a !important; font-size: 16px; margin: 5px 0;"><strong style="color: #2563eb !important;">Rows:</strong> {}</p>
+        <p style="color: #1e3a8a !important; font-size: 16px; margin: 5px 0;"><strong style="color: #2563eb !important;">Columns:</strong> {}</p>
+        <p style="color: #1e3a8a !important; font-size: 16px; margin: 5px 0;"><strong style="color: #2563eb !important;">Duplicates Removed:</strong> {}</p>
     </div>
     """.format(len(df), len(df.columns), duplicates), unsafe_allow_html=True)
 
 with col2:
     st.markdown("""
     <div class="blue-card">
-        <h4>First 5 Rows</h4>
+        <h4 style="color: #1e40af !important; font-size: 18px; margin-bottom: 15px;">Column Names</h4>
+        <p style="color: #1e3a8a !important; font-size: 16px; line-height: 1.8;">{}</p>
     </div>
-    """, unsafe_allow_html=True)
-    st.dataframe(df.head())
+    """.format(', '.join(df.columns.tolist())), unsafe_allow_html=True)
 
 with col3:
     st.markdown("""
     <div class="blue-card">
-        <h4>Column Names</h4>
+        <h4 style="color: #1e40af !important; font-size: 18px; margin-bottom: 15px;">Data Statistics</h4>
+        <p style="color: #1e3a8a !important; font-size: 16px; margin: 5px 0;"><strong style="color: #2563eb !important;">Missing Values:</strong> 0</p>
+        <p style="color: #1e3a8a !important; font-size: 16px; margin: 5px 0;"><strong style="color: #2563eb !important;">Numeric Columns:</strong> {}</p>
+        <p style="color: #1e3a8a !important; font-size: 16px; margin: 5px 0;"><strong style="color: #2563eb !important;">Data Quality:</strong> Clean</p>
     </div>
-    """, unsafe_allow_html=True)
-    st.write(df.columns.tolist())
+    """.format(len(numeric_cols)), unsafe_allow_html=True)
 
 # ================================
 # FOOTER
@@ -527,7 +611,7 @@ with col3:
 st.divider()
 st.markdown("""
 <div class="blue-section">
-    <h4>🛗 Smart Elevator Monitoring System</h4>
-    <p>Predictive Maintenance & Sensor-Based Elevator Monitoring</p>
+    <h4 style="color: white !important; font-size: 24px; margin: 0;">🛗 Smart Elevator Monitoring System</h4>
+    <p style="color: white !important; font-size: 16px; margin: 10px 0 0 0;">Predictive Maintenance &amp; Sensor-Based Elevator Monitoring</p>
 </div>
 """, unsafe_allow_html=True)
