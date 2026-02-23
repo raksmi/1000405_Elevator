@@ -75,7 +75,7 @@ st.markdown("""
 # LOGO AND TITLE
 # ================================
 # Display logo image
-st.image("elevator_logo.png", width=200, caption="Smart Elevator Monitoring System")
+st.image("LOGO.png", width=200, caption="Smart Elevator Monitoring System")
 
 st.markdown("""
 <div class="blue-section">
