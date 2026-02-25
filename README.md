@@ -264,6 +264,3 @@ elevator-monitoring-dashboard/
     └── workspace_output_*.txt # Streamlit logs
 
 
-Made with ❤️ by NinjaTech AI
-
-Smart Elevator Monitoring Dashboard - Predictive Maintenance Made Easy
