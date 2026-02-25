@@ -8,22 +8,15 @@ A comprehensive predictive maintenance dashboard for elevator systems using mach
 
 - ✨ Features
 
-- 🚀 Installation
-
 - 🎯 Usage
 
 - 📊 Dataset Requirements
 
 - 🔧 Technical Details
 
-- 🎨 Customization
+- 🎨 Credits
 
-- 🐛 Troubleshooting
-
-- 🚀 Deployment
-
-- 📄 License
-
+  
 🎯 Overview
 
 Smart Elevator Monitoring Dashboard is a sophisticated predictive maintenance application designed to monitor elevator systems through sensor data analysis. Built with Streamlit, it provides real-time visualization of elevator performance metrics including humidity, revolutions, and vibration, with machine learning-powered anomaly detection and predictive maintenance capabilities.
