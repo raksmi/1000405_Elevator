@@ -2,6 +2,10 @@
 
 A comprehensive predictive maintenance dashboard for elevator systems using machine learning and real-time sensor data analysis.
 
+APP LINK: https://elevatormonitoringsystem.streamlit.app/
+
+Also view https://www.canva.com/design/DAHBvM4ZVOQ/B-sqr3PHIeUhfkx6Hf1_NQ/edit?utm_content=DAHBvM4ZVOQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton for the storyboard
+
 📋 Table of Contents
 
 - 🎯 Overview
