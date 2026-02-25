@@ -1,36 +1,521 @@
-<h1>🛗 Smart Elevator Monitoring Dashboard</h1><p>A comprehensive predictive maintenance dashboard for elevator systems using machine learning and real-time sensor data analysis.</p><p> <img src="https://img.shields.io/badge/Streamlit-1.28.0-red" alt="Streamlit" class="e-rte-image e-imginline"> <img src="https://img.shields.io/badge/Python-3.8+-blue" alt="Python" class="e-rte-image e-imginline"> <img src="https://img.shields.io/badge/License-MIT-green" alt="License" class="e-rte-image e-imginline"> </p><h2>📋 Table of Contents</h2><ul> <li><a href="#-overview">🎯 Overview</a></li> <li><a href="#-features">✨ Features</a></li> <li><a href="#-installation">🚀 Installation</a></li> <li><a href="#-usage">🎯 Usage</a></li> <li><a href="#-dataset-requirements">📊 Dataset Requirements</a></li> <li><a href="#-technical-details">🔧 Technical Details</a></li> <li><a href="#-customization">🎨 Customization</a></li> <li><a href="#-troubleshooting">🐛 Troubleshooting</a></li> <li><a href="#-deployment">🚀 Deployment</a></li> <li><a href="#-license">📄 License</a></li> </ul><hr><h2>🎯 Overview</h2><p><strong>Smart Elevator Monitoring Dashboard</strong> is a sophisticated predictive maintenance application designed to monitor elevator systems through sensor data analysis. Built with Streamlit, it provides real-time visualization of elevator performance metrics including <strong>humidity, revolutions, and vibration</strong>, with machine learning-powered anomaly detection and predictive maintenance capabilities.</p><h3>Key Highlights:</h3><ul> <li>🎨 <strong>Modern Blue Theme</strong>: Professional, easy-to-read interface with consistent blue color scheme</li> <li>📊 <strong>Real-Time Analytics</strong>: Interactive visualizations for comprehensive data analysis</li> <li>🤖 <strong>Machine Learning Integration</strong>: Random Forest and Isolation Forest models for predictive maintenance</li> <li>📈 <strong>Advanced Visualizations</strong>: 6 different chart types including line plots, histograms, scatter plots, box plots, and correlation heatmaps</li> <li>⚙️ <strong>Interactive Thresholds</strong>: Adjustable vibration threshold slider for custom alert levels</li> <li>🎯 <strong>Dual Mode Operation</strong>: Dashboard Analysis and Predictive Maintenance modes</li> <li>📱 <strong>Responsive Design</strong>: Beautiful, mobile-friendly interface</li> <li>🔍 <strong>Anomaly Detection</strong>: Automatic identification of unusual sensor patterns</li> </ul><hr><h2>✨ Features</h2><h3>📊 Dashboard Analysis Mode</h3><h4>📌 Key Performance Metrics</h4><ul> <li><strong>Average Vibration</strong>: Mean vibration level across all readings</li> <li><strong>Maximum Vibration</strong>: Highest recorded vibration value</li> <li><strong>Average Humidity</strong>: Mean humidity percentage</li> <li><strong>Total Revolutions</strong>: Cumulative motor revolutions</li> </ul><h4>⚙️ Vibration Threshold Filter</h4><ul> <li><strong>Interactive Slider</strong>: Adjust vibration alert threshold in real-time</li> <li><strong>Dynamic Filtering</strong>: Automatically identify high-vibration samples</li> <li><strong>Alert System</strong>: Visual warnings when samples exceed threshold</li> <li><strong>Contextual Information</strong>: Count and percentage of samples above threshold</li> </ul><h4>📈 Exploratory Data Analysis Visualizations</h4><ol> <li><strong>Vibration Over Time (Line Plot)</strong> <ul> <li>Shows vibration trends across all readings</li> <li>Red dashed line indicates custom threshold</li> <li>Helps identify periods of elevated vibration</li> </ul> </li> <li><strong>Humidity Distribution (Histogram)</strong> <ul> <li>50-bin histogram for detailed distribution</li> <li>Understand environmental conditions</li> <li>Identify normal operating ranges</li> </ul> </li> <li><strong>Revolutions Distribution (Histogram)</strong> <ul> <li>Analyze motor usage patterns</li> <li>Identify frequency of revolution counts</li> <li>Spot outliers in motor performance</li> </ul> </li> <li><strong>Revolutions vs Vibration (Scatter Plot)</strong> <ul> <li>Correlation analysis with OLS trendline</li> <li>Visual relationship between motor usage and vibration</li> <li>Threshold line for easy reference</li> </ul> </li> <li><strong>Sensor Variability &amp; Outliers (Box Plot)</strong> <ul> <li>Compare readings across 5 sensors (x1-x5)</li> <li>Identify outliers and inconsistent sensor behavior</li> <li>Assess sensor reliability and calibration</li> <li>Color-coded by sensor for easy identification</li> </ul> </li> <li><strong>Correlation Heatmap</strong> <ul> <li>Visual representation of relationships between all numeric features</li> <li>Values range from -1 (negative correlation) to +1 (positive correlation)</li> <li>Helps identify which factors are most related</li> <li>Blue color scale for consistent theming</li> </ul> </li> </ol><h3>🔮 Predictive Maintenance Mode</h3><h4>🤖 Machine Learning Models</h4><ul> <li><strong>Random Forest Classifier</strong>: Predicts high vibration events <ul> <li>Uses 75th percentile as threshold</li> <li>Features: revolutions, humidity, x1, x2, x3, x4, x5</li> <li>100 estimators for robust predictions</li> </ul> </li> <li><strong>Isolation Forest</strong>: Detects anomalous patterns <ul> <li>10% contamination rate</li> <li>Identifies unusual sensor readings</li> <li>Provides anomaly scores</li> </ul> </li> </ul><h4>📊 Feature Importance Analysis</h4><ul> <li><strong>Horizontal Bar Chart</strong>: Visual ranking of feature importance</li> <li><strong>Color Gradient</strong>: Blues scale for easy interpretation</li> <li><strong>Identifies Key Factors</strong>: Shows which sensors most influence vibration</li> </ul><h4>🎯 Anomaly Detection Results</h4><ul> <li><strong>Scatter Plot</strong>: Visual representation of anomaly scores</li> <li><strong>Color Coding</strong>: Red for anomalies, blue for normal</li> <li><strong>Anomaly Count</strong>: Total number of detected anomalies</li> <li><strong>Detailed View</strong>: Table of all anomalous samples</li> </ul><h4>📋 Anomalous Samples</h4><ul> <li><strong>Interactive Table</strong>: View all detected anomalies</li> <li><strong>Complete Data</strong>: All sensor readings for anomalous samples</li> <li><strong>Easy Export</strong>: Copy or download for further analysis</li> </ul><h3>🎨 Interface Features</h3><h4>🌈 Blue Theme Design</h4><ul> <li><strong>Primary Color</strong>: #2563eb (Bright Blue)</li> <li><strong>Secondary Color</strong>: #1e40af (Dark Blue)</li> <li><strong>Accent Color</strong>: #3b82f6 (Medium Blue)</li> <li><strong>Light Blue</strong>: #dbeafe (Background)</li> <li><strong>Dark Blue</strong>: #1e3a8a (Text)</li> </ul><h4>✨ Visual Effects</h4><ul> <li><strong>Gradient Headers</strong>: Beautiful blue gradient sections</li> <li><strong>Card Styling</strong>: White cards with blue borders</li> <li><strong>Alert Boxes</strong>: Color-coded information, warning, and success messages</li> <li><strong>Hover Effects</strong>: Interactive feedback on buttons and elements</li> <li><strong>Smooth Transitions</strong>: Animated state changes</li> </ul><h4>📱 Responsive Design</h4><ul> <li><strong>Wide Layout</strong>: Optimized for desktop viewing</li> <li><strong>Flexible Columns</strong>: Adaptive 2, 3, and 4-column layouts</li> <li><strong>Touch-Friendly</strong>: Optimized buttons and sliders</li> <li><strong>Readable Fonts</strong>: Clear, high-contrast text</li> </ul><h3>🔒 Data Quality Features</h3><h4>📋 Data Validation</h4><ul> <li><strong>Required Columns Check</strong>: Ensures all necessary columns exist</li> <li><strong>Missing Column Alerts</strong>: Clear error messages for missing data</li> <li><strong>Automatic Validation</strong>: Stops execution if data is invalid</li> </ul><h4>🧹 Data Cleaning</h4><ul> <li><strong>Duplicate Removal</strong>: Automatically removes duplicate rows</li> <li><strong>Missing Value Handling</strong>: Removes rows with null values</li> <li><strong>Type Conversion</strong>: Converts columns to numeric types</li> <li><strong>Quality Reporting</strong>: Shows number of duplicates and missing values removed</li> </ul><h4>📊 Dataset Summary</h4><ul> <li><strong>Dataset Info</strong>: Row count, column count, duplicates removed</li> <li><strong>Column Names</strong>: List of all available columns</li> <li><strong>Data Statistics</strong>: Missing values, numeric columns, data quality status</li> </ul><hr><h2>🚀 Installation</h2><h3>Prerequisites</h3><ul> <li>Python 3.8 or higher</li> <li>pip package manager</li> </ul><h3>Step 1: Clone or Download the Project</h3><pre><code class="language-bash">git clone &lt;repository-url&gt;
+🛗 Smart Elevator Monitoring Dashboard
+
+A comprehensive predictive maintenance dashboard for elevator systems using machine learning and real-time sensor data analysis.
+
+📋 Table of Contents
+
+- 🎯 Overview
+
+- ✨ Features
+
+- 🚀 Installation
+
+- 🎯 Usage
+
+- 📊 Dataset Requirements
+
+- 🔧 Technical Details
+
+- 🎨 Customization
+
+- 🐛 Troubleshooting
+
+- 🚀 Deployment
+
+- 📄 License
+
+🎯 Overview
+
+Smart Elevator Monitoring Dashboard is a sophisticated predictive maintenance application designed to monitor elevator systems through sensor data analysis. Built with Streamlit, it provides real-time visualization of elevator performance metrics including humidity, revolutions, and vibration, with machine learning-powered anomaly detection and predictive maintenance capabilities.
+
+Key Highlights:
+
+- 🎨 Modern Blue Theme: Professional, easy-to-read interface with consistent blue color scheme
+
+- 📊 Real-Time Analytics: Interactive visualizations for comprehensive data analysis
+
+- 🤖 Machine Learning Integration: Random Forest and Isolation Forest models for predictive maintenance
+
+- 📈 Advanced Visualizations: 6 different chart types including line plots, histograms, scatter plots, box plots, and correlation heatmaps
+
+- ⚙️ Interactive Thresholds: Adjustable vibration threshold slider for custom alert levels
+
+- 🎯 Dual Mode Operation: Dashboard Analysis and Predictive Maintenance modes
+
+- 📱 Responsive Design: Beautiful, mobile-friendly interface
+
+- 🔍 Anomaly Detection: Automatic identification of unusual sensor patterns
+
+✨ Features
+
+📊 Dashboard Analysis Mode
+
+📌 Key Performance Metrics
+
+- Average Vibration: Mean vibration level across all readings
+
+- Maximum Vibration: Highest recorded vibration value
+
+- Average Humidity: Mean humidity percentage
+
+- Total Revolutions: Cumulative motor revolutions
+
+⚙️ Vibration Threshold Filter
+
+- Interactive Slider: Adjust vibration alert threshold in real-time
+
+- Dynamic Filtering: Automatically identify high-vibration samples
+
+- Alert System: Visual warnings when samples exceed threshold
+
+- Contextual Information: Count and percentage of samples above threshold
+
+📈 Exploratory Data Analysis Visualizations
+
+- Vibration Over Time (Line Plot)
+
+- Shows vibration trends across all readings
+
+- Red dashed line indicates custom threshold
+
+- Helps identify periods of elevated vibration
+
+- Humidity Distribution (Histogram)
+
+- 50-bin histogram for detailed distribution
+
+- Understand environmental conditions
+
+- Identify normal operating ranges
+
+- Revolutions Distribution (Histogram)
+
+- Analyze motor usage patterns
+
+- Identify frequency of revolution counts
+
+- Spot outliers in motor performance
+
+- Revolutions vs Vibration (Scatter Plot)
+
+- Correlation analysis with OLS trendline
+
+- Visual relationship between motor usage and vibration
+
+- Threshold line for easy reference
+
+- Sensor Variability & Outliers (Box Plot)
+
+- Compare readings across 5 sensors (x1-x5)
+
+- Identify outliers and inconsistent sensor behavior
+
+- Assess sensor reliability and calibration
+
+- Color-coded by sensor for easy identification
+
+- Correlation Heatmap
+
+- Visual representation of relationships between all numeric features
+
+- Values range from -1 (negative correlation) to +1 (positive correlation)
+
+- Helps identify which factors are most related
+
+- Blue color scale for consistent theming
+
+🔮 Predictive Maintenance Mode
+
+🤖 Machine Learning Models
+
+- Random Forest Classifier: Predicts high vibration events
+
+- Uses 75th percentile as threshold
+
+- Features: revolutions, humidity, x1, x2, x3, x4, x5
+
+- 100 estimators for robust predictions
+
+- Isolation Forest: Detects anomalous patterns
+
+- 10% contamination rate
+
+- Identifies unusual sensor readings
+
+- Provides anomaly scores
+
+📊 Feature Importance Analysis
+
+- Horizontal Bar Chart: Visual ranking of feature importance
+
+- Color Gradient: Blues scale for easy interpretation
+
+- Identifies Key Factors: Shows which sensors most influence vibration
+
+🎯 Anomaly Detection Results
+
+- Scatter Plot: Visual representation of anomaly scores
+
+- Color Coding: Red for anomalies, blue for normal
+
+- Anomaly Count: Total number of detected anomalies
+
+- Detailed View: Table of all anomalous samples
+
+📋 Anomalous Samples
+
+- Interactive Table: View all detected anomalies
+
+- Complete Data: All sensor readings for anomalous samples
+
+- Easy Export: Copy or download for further analysis
+
+🎨 Interface Features
+
+🌈 Blue Theme Design
+
+- Primary Color: #2563eb (Bright Blue)
+
+- Secondary Color: #1e40af (Dark Blue)
+
+- Accent Color: #3b82f6 (Medium Blue)
+
+- Light Blue: #dbeafe (Background)
+
+- Dark Blue: #1e3a8a (Text)
+
+✨ Visual Effects
+
+- Gradient Headers: Beautiful blue gradient sections
+
+- Card Styling: White cards with blue borders
+
+- Alert Boxes: Color-coded information, warning, and success messages
+
+- Hover Effects: Interactive feedback on buttons and elements
+
+- Smooth Transitions: Animated state changes
+
+📱 Responsive Design
+
+- Wide Layout: Optimized for desktop viewing
+
+- Flexible Columns: Adaptive 2, 3, and 4-column layouts
+
+- Touch-Friendly: Optimized buttons and sliders
+
+- Readable Fonts: Clear, high-contrast text
+
+🔒 Data Quality Features
+
+📋 Data Validation
+
+- Required Columns Check: Ensures all necessary columns exist
+
+- Missing Column Alerts: Clear error messages for missing data
+
+- Automatic Validation: Stops execution if data is invalid
+
+🧹 Data Cleaning
+
+- Duplicate Removal: Automatically removes duplicate rows
+
+- Missing Value Handling: Removes rows with null values
+
+- Type Conversion: Converts columns to numeric types
+
+- Quality Reporting: Shows number of duplicates and missing values removed
+
+📊 Dataset Summary
+
+- Dataset Info: Row count, column count, duplicates removed
+
+- Column Names: List of all available columns
+
+- Data Statistics: Missing values, numeric columns, data quality status
+
+🚀 Installation
+
+Prerequisites
+
+- Python 3.8 or higher
+
+- pip package manager
+
+Step 1: Clone or Download the Project
+
+git clone <repository-url>
 cd smart-elevator-monitoring-dashboard
-</code></pre><h3>Step 2: Create Virtual Environment (Optional but Recommended)</h3><pre><code class="language-bash">python -m venv venv
+
+Step 2: Create Virtual Environment (Optional but Recommended)
+
+python -m venv venv
 
 # On Windows
 venv\Scripts\activate
 
 # On macOS/Linux
 source venv/bin/activate
-</code></pre><h3>Step 3: Install Required Packages</h3><p>Create a <code>requirements.txt</code> file with the following content:</p><pre><code class="language-txt">streamlit==1.28.0
+
+Step 3: Install Required Packages
+
+Create a requirements.txt file with the following content:
+
+streamlit==1.28.0
 pandas==2.0.3
 numpy==1.24.3
 matplotlib==3.7.2
 seaborn==0.12.2
 plotly==5.15.0
 scikit-learn==1.3.0
-</code></pre><p>Install the packages:</p><pre><code class="language-bash">pip install -r requirements.txt
-</code></pre><h3>Step 4: Prepare Dataset</h3><p>Ensure your dataset file <code>Elevator predictive-maintenance-dataset.csv</code> is in the same directory as <code>app.py</code>.</p><p>The dataset must contain the following columns:</p><ul> <li>ID</li> <li>revolutions</li> <li>humidity</li> <li>vibration</li> <li>x1, x2, x3, x4, x5 (sensor readings)</li> </ul><h3>Step 5: Add Logo (Optional)</h3><p>Place your logo file <code>LIFTBOT.png</code> in the project directory. If you don't have a logo, the app will still work without it.</p><hr><h2>🎯 Usage</h2><h3>Running the Dashboard</h3><p>Start the Streamlit application:</p><pre><code class="language-bash">streamlit run app.py
-</code></pre><p>The dashboard will automatically open in your default web browser at <code>http://localhost:8501</code></p><h3>Navigation</h3><h4>Dashboard Analysis Mode (Default)</h4><ol> <li><strong>View Key Metrics</strong>: Check the 4 performance cards at the top</li> <li><strong>Adjust Threshold</strong>: Use the slider to set vibration alert threshold</li> <li><strong>Review Alerts</strong>: Check for high-vibration warnings</li> <li><strong>Explore Visualizations</strong>: Scroll through all 6 charts<ul> <li>Line plot for vibration trends</li> <li>Histograms for humidity and revolutions</li> <li>Scatter plot for correlations</li> <li>Box plot for sensor variability</li> <li>Heatmap for feature correlations</li> </ul> </li> </ol><h4>Predictive Maintenance Mode</h4><ol> <li><strong>Train Models</strong>: Click "🤖 Train Predictive Models" button</li> <li><strong>Wait for Training</strong>: Models train in 1-5 seconds (depending on data size)</li> <li><strong>View Results</strong>:<ul> <li>Feature importance bar chart</li> <li>Anomaly detection scatter plot</li> <li>Anomaly count and statistics</li> </ul> </li> <li><strong>Examine Anomalies</strong>: Review the table of anomalous samples</li> </ol><h3>Understanding the Visualizations</h3><h4>Line Plot - Vibration Over Time</h4><ul> <li>Shows vibration trends across all readings</li> <li>Red dashed line indicates your custom threshold</li> <li>Helps identify periods of elevated vibration</li> <li>Hover over points for exact values</li> </ul><h4>Histograms - Distribution Analysis</h4><ul> <li><strong>Humidity</strong>: Understand environmental conditions</li> <li><strong>Revolutions</strong>: Analyze motor usage patterns</li> <li>Identify normal operating ranges and outliers</li> <li>50 bins for detailed distribution view</li> </ul><h4>Scatter Plot - Revolutions vs Vibration</h4><ul> <li>Correlation analysis between motor usage and vibration</li> <li>Trendline shows overall relationship</li> <li>Threshold line highlights concerning readings</li> <li>Color-coded points for easy identification</li> </ul><h4>Box Plot - Sensor Variability</h4><ul> <li>Compare readings across all 5 sensors (x1-x5)</li> <li>Identify outliers and inconsistent sensor behavior</li> <li>Assess sensor reliability and calibration</li> <li>Color-coded by sensor for easy comparison</li> </ul><h4>Correlation Heatmap</h4><ul> <li>Visual representation of relationships between all numeric features</li> <li>Values range from -1 (negative correlation) to +1 (positive correlation)</li> <li>Helps identify which factors are most related</li> <li>Blue color scale for consistent theming</li> </ul><hr><h2>📊 Dataset Requirements</h2><h3>Required Columns</h3><table class="e-rte-table"> <thead> <tr> <th>Column</th> <th>Description</th> <th>Type</th> <th>Example</th> </tr> </thead> <tbody><tr> <td>ID</td> <td>Unique identifier</td> <td>Integer/String</td> <td>1, 2, 3...</td> </tr> <tr> <td>revolutions</td> <td>Motor revolutions</td> <td>Numeric</td> <td>1500, 1600, 1550</td> </tr> <tr> <td>humidity</td> <td>Humidity level (%)</td> <td>Numeric</td> <td>45.2, 46.1, 44.8</td> </tr> <tr> <td>vibration</td> <td>Vibration measurement</td> <td>Numeric</td> <td>0.123, 0.145, 0.118</td> </tr> <tr> <td>x1-x5</td> <td>Additional sensor readings</td> <td>Numeric</td> <td>0.456, 0.789, 0.234</td> </tr> </tbody></table><h3>Data Quality</h3><ul> <li>The dashboard automatically handles:<ul> <li>Duplicate rows (removed)</li> <li>Missing values (rows removed)</li> <li>Non-numeric values (converted or removed)</li> </ul> </li> <li>Recommended minimum: 100+ rows for meaningful analysis</li> <li>Recommended maximum: 100,000 rows for optimal performance</li> </ul><h3>Example Dataset Structure</h3><pre><code class="language-csv">ID,revolutions,humidity,vibration,x1,x2,x3,x4,x5
+
+Install the packages:
+
+pip install -r requirements.txt
+
+Step 4: Prepare Dataset
+
+Ensure your dataset file Elevator predictive-maintenance-dataset.csv is in the same directory as app.py.
+
+The dataset must contain the following columns:
+
+- ID
+
+- revolutions
+
+- humidity
+
+- vibration
+
+- x1, x2, x3, x4, x5 (sensor readings)
+
+Step 5: Add Logo (Optional)
+
+Place your logo file LIFTBOT.png in the project directory. If you don't have a logo, the app will still work without it.
+
+🎯 Usage
+
+Running the Dashboard
+
+Start the Streamlit application:
+
+streamlit run app.py
+
+The dashboard will automatically open in your default web browser at http://localhost:8501
+
+Navigation
+
+Dashboard Analysis Mode (Default)
+
+- View Key Metrics: Check the 4 performance cards at the top
+
+- Adjust Threshold: Use the slider to set vibration alert threshold
+
+- Review Alerts: Check for high-vibration warnings
+
+- Explore Visualizations: Scroll through all 6 charts
+
+- Line plot for vibration trends
+
+- Histograms for humidity and revolutions
+
+- Scatter plot for correlations
+
+- Box plot for sensor variability
+
+- Heatmap for feature correlations
+
+Predictive Maintenance Mode
+
+- Train Models: Click "🤖 Train Predictive Models" button
+
+- Wait for Training: Models train in 1-5 seconds (depending on data size)
+
+- View Results:
+
+- Feature importance bar chart
+
+- Anomaly detection scatter plot
+
+- Anomaly count and statistics
+
+- Examine Anomalies: Review the table of anomalous samples
+
+Understanding the Visualizations
+
+Line Plot - Vibration Over Time
+
+- Shows vibration trends across all readings
+
+- Red dashed line indicates your custom threshold
+
+- Helps identify periods of elevated vibration
+
+- Hover over points for exact values
+
+Histograms - Distribution Analysis
+
+- Humidity: Understand environmental conditions
+
+- Revolutions: Analyze motor usage patterns
+
+- Identify normal operating ranges and outliers
+
+- 50 bins for detailed distribution view
+
+Scatter Plot - Revolutions vs Vibration
+
+- Correlation analysis between motor usage and vibration
+
+- Trendline shows overall relationship
+
+- Threshold line highlights concerning readings
+
+- Color-coded points for easy identification
+
+Box Plot - Sensor Variability
+
+- Compare readings across all 5 sensors (x1-x5)
+
+- Identify outliers and inconsistent sensor behavior
+
+- Assess sensor reliability and calibration
+
+- Color-coded by sensor for easy comparison
+
+Correlation Heatmap
+
+- Visual representation of relationships between all numeric features
+
+- Values range from -1 (negative correlation) to +1 (positive correlation)
+
+- Helps identify which factors are most related
+
+- Blue color scale for consistent theming
+
+📊 Dataset Requirements
+
+Required Columns
+
+ Column Description Type Example
+
+ ID Unique identifier Integer/String 1, 2, 3...
+
+ revolutions Motor revolutions Numeric 1500, 1600, 1550
+
+ humidity Humidity level (%) Numeric 45.2, 46.1, 44.8
+
+ vibration Vibration measurement Numeric 0.123, 0.145, 0.118
+
+ x1-x5 Additional sensor readings Numeric 0.456, 0.789, 0.234
+
+Data Quality
+
+- The dashboard automatically handles:
+
+- Duplicate rows (removed)
+
+- Missing values (rows removed)
+
+- Non-numeric values (converted or removed)
+
+- Recommended minimum: 100+ rows for meaningful analysis
+
+- Recommended maximum: 100,000 rows for optimal performance
+
+Example Dataset Structure
+
+ID,revolutions,humidity,vibration,x1,x2,x3,x4,x5
 1,1500,45.2,0.123,0.456,0.789,0.234,0.567,0.890
 2,1600,46.1,0.145,0.467,0.790,0.245,0.578,0.901
 3,1550,44.8,0.118,0.445,0.778,0.222,0.555,0.888
 4,1520,45.5,0.130,0.450,0.780,0.230,0.560,0.895
 5,1580,45.8,0.138,0.460,0.785,0.235,0.565,0.898
 ...
-</code></pre><hr><h2>🔧 Technical Details</h2><h3>Machine Learning Models</h3><h4>Random Forest Classifier</h4><ul> <li><strong>Purpose</strong>: Predict high vibration events</li> <li><strong>Threshold</strong>: 75th percentile of vibration values</li> <li><strong>Features</strong>: revolutions, humidity, x1, x2, x3, x4, x5</li> <li><strong>Parameters</strong>:<ul> <li>n_estimators: 100 (number of trees)</li> <li>random_state: 42 (reproducibility)</li> </ul> </li> <li><strong>Output</strong>: Binary classification (normal/high vibration)</li> </ul><h4>Isolation Forest</h4><ul> <li><strong>Purpose</strong>: Detect anomalous patterns</li> <li><strong>Contamination</strong>: 0.1 (10% expected anomaly rate)</li> <li><strong>Features</strong>: Same as Random Forest</li> <li><strong>Parameters</strong>:<ul> <li>contamination: 0.1</li> <li>random_state: 42</li> </ul> </li> <li><strong>Output</strong>: Anomaly score and binary classification (-1 for anomaly, 1 for normal)</li> </ul><h3>Performance Considerations</h3><ul> <li><strong>Training Time</strong>: Typically 1-5 seconds for datasets up to 10,000 rows</li> <li><strong>Memory Usage</strong>: Depends on dataset size</li> <li><strong>Recommended Dataset Size</strong>: 1,000-100,000 rows</li> <li><strong>Visualization Rendering</strong>: Instant for most charts</li> </ul><h3>Technology Stack</h3><ul> <li><strong>Frontend</strong>: Streamlit</li> <li><strong>Data Processing</strong>: Pandas, NumPy</li> <li><strong>Visualization</strong>: Plotly, Matplotlib, Seaborn</li> <li><strong>Machine Learning</strong>: scikit-learn</li> <li><strong>Styling</strong>: Custom CSS</li> </ul><hr><h2>🎨 Customization</h2><h3>Changing the Color Theme</h3><p>The dashboard uses a blue color scheme. To customize:</p><ol> <li>Open <code>app.py</code></li> <li>Locate the CSS section in the <code>st.markdown</code> block</li> <li>Modify the color variables:</li> </ol><pre><code class="language-css">:root {
+
+🔧 Technical Details
+
+Machine Learning Models
+
+Random Forest Classifier
+
+- Purpose: Predict high vibration events
+
+- Threshold: 75th percentile of vibration values
+
+- Features: revolutions, humidity, x1, x2, x3, x4, x5
+
+- Parameters:
+
+- n_estimators: 100 (number of trees)
+
+- random_state: 42 (reproducibility)
+
+- Output: Binary classification (normal/high vibration)
+
+Isolation Forest
+
+- Purpose: Detect anomalous patterns
+
+- Contamination: 0.1 (10% expected anomaly rate)
+
+- Features: Same as Random Forest
+
+- Parameters:
+
+- contamination: 0.1
+
+- random_state: 42
+
+- Output: Anomaly score and binary classification (-1 for anomaly, 1 for normal)
+
+Performance Considerations
+
+- Training Time: Typically 1-5 seconds for datasets up to 10,000 rows
+
+- Memory Usage: Depends on dataset size
+
+- Recommended Dataset Size: 1,000-100,000 rows
+
+- Visualization Rendering: Instant for most charts
+
+Technology Stack
+
+- Frontend: Streamlit
+
+- Data Processing: Pandas, NumPy
+
+- Visualization: Plotly, Matplotlib, Seaborn
+
+- Machine Learning: scikit-learn
+
+- Styling: Custom CSS
+
+🎨 Customization
+
+Changing the Color Theme
+
+The dashboard uses a blue color scheme. To customize:
+
+- Open app.py
+
+- Locate the CSS section in the st.markdown block
+
+- Modify the color variables:
+
+:root {
     --primary-color: #2563eb;    /* Main blue */
     --secondary-color: #1e40af;  /* Darker blue */
     --accent-color: #3b82f6;     /* Lighter blue */
     --light-blue: #dbeafe;       /* Background */
     --dark-blue: #1e3a8a;        /* Text */
 }
-</code></pre><h3>Adjusting ML Model Parameters</h3><p>Modify model parameters in the Predictive Maintenance section:</p><pre><code class="language-python"># Random Forest
+
+Adjusting ML Model Parameters
+
+Modify model parameters in the Predictive Maintenance section:
+
+# Random Forest
 rf_model = RandomForestClassifier(
     n_estimators=100,      # Number of trees (try 50-200)
     random_state=42
@@ -41,9 +526,19 @@ iso_forest = IsolationForest(
     contamination=0.1,     # Expected anomaly rate (0.05-0.2)
     random_state=42
 )
-</code></pre><h3>Changing Vibration Threshold Percentile</h3><p>Default is 75th percentile. To change:</p><pre><code class="language-python">threshold_75th = df['vibration'].quantile(0.75)  # Change 0.75 to desired value
+
+Changing Vibration Threshold Percentile
+
+Default is 75th percentile. To change:
+
+threshold_75th = df['vibration'].quantile(0.75)  # Change 0.75 to desired value
 # Examples: 0.5 (median), 0.9 (90th percentile)
-</code></pre><h3>Customizing Chart Colors</h3><p>Modify color sequences in Plotly charts:</p><pre><code class="language-python"># Line plot
+
+Customizing Chart Colors
+
+Modify color sequences in Plotly charts:
+
+# Line plot
 color_discrete_sequence=['#2563eb']  # Change to your color
 
 # Histogram
@@ -52,21 +547,136 @@ color_discrete_sequence=['#3b82f6']  # Change to your color
 # Box plot
 blue_colors = ['#1e3a8a', '#1e40af', '#2563eb', '#3b82f6', '#60a5fa']
 # Modify these hex codes
-</code></pre><hr><h2>🐛 Troubleshooting</h2><h3>Common Issues</h3><h4>Issue: "Dataset Not Found" error</h4><p><strong>Solution</strong>: Ensure <code>Elevator predictive-maintenance-dataset.csv</code> is in the same directory as <code>app.py</code></p><h4>Issue: "Missing Required Columns" error</h4><p><strong>Solution</strong>: Verify your CSV contains all required columns: ID, revolutions, humidity, vibration, x1, x2, x3, x4, x5</p><h4>Issue: Logo not displaying</h4><p><strong>Solution</strong>: Ensure <code>LIFTBOT.png</code> exists in the project directory, or remove the logo line from the code</p><h4>Issue: Models not training</h4><p><strong>Solution</strong>: Ensure you have sufficient data (minimum 50 rows) and all numeric columns contain valid numbers</p><h4>Issue: Charts not displaying</h4><p><strong>Solution</strong>: Check browser console for errors, ensure all dependencies are installed correctly</p><h4>Issue: Slow performance</h4><p><strong>Solution</strong>: Reduce dataset size or increase system resources. For large datasets (&gt;100,000 rows), consider data sampling</p><h4>Issue: Port already in use</h4><p><strong>Solution</strong>: Specify a different port when running:</p><pre><code class="language-bash">streamlit run app.py --server.port 8501
-</code></pre><h3>Debug Mode</h3><p>Enable debug mode for detailed error messages:</p><pre><code class="language-bash">streamlit run app.py --logger.level=debug
-</code></pre><hr><h2>🚀 Deployment</h2><h3>Local Deployment</h3><pre><code class="language-bash">streamlit run app.py
-</code></pre><h3>Cloud Deployment (Streamlit Cloud)</h3><ol> <li>Push code to GitHub repository</li> <li>Connect repository to Streamlit Cloud</li> <li>Deploy automatically</li> </ol><h3>Docker Deployment</h3><p>Create a <code>Dockerfile</code>:</p><pre><code class="language-dockerfile">FROM python:3.9-slim
+
+🐛 Troubleshooting
+
+Common Issues
+
+Issue: "Dataset Not Found" error
+
+Solution: Ensure Elevator predictive-maintenance-dataset.csv is in the same directory as app.py
+
+Issue: "Missing Required Columns" error
+
+Solution: Verify your CSV contains all required columns: ID, revolutions, humidity, vibration, x1, x2, x3, x4, x5
+
+Issue: Logo not displaying
+
+Solution: Ensure LIFTBOT.png exists in the project directory, or remove the logo line from the code
+
+Issue: Models not training
+
+Solution: Ensure you have sufficient data (minimum 50 rows) and all numeric columns contain valid numbers
+
+Issue: Charts not displaying
+
+Solution: Check browser console for errors, ensure all dependencies are installed correctly
+
+Issue: Slow performance
+
+Solution: Reduce dataset size or increase system resources. For large datasets (>100,000 rows), consider data sampling
+
+Issue: Port already in use
+
+Solution: Specify a different port when running:
+
+streamlit run app.py --server.port 8501
+
+Debug Mode
+
+Enable debug mode for detailed error messages:
+
+streamlit run app.py --logger.level=debug
+
+🚀 Deployment
+
+Local Deployment
+
+streamlit run app.py
+
+Cloud Deployment (Streamlit Cloud)
+
+- Push code to GitHub repository
+
+- Connect repository to Streamlit Cloud
+
+- Deploy automatically
+
+Docker Deployment
+
+Create a Dockerfile:
+
+FROM python:3.9-slim
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
 EXPOSE 8501
 CMD ["streamlit", "run", "app.py"]
-</code></pre><p>Build and run:</p><pre><code class="language-bash">docker build -t elevator-dashboard .
+
+Build and run:
+
+docker build -t elevator-dashboard .
 docker run -p 8501:8501 elevator-dashboard
-</code></pre><h3>Heroku Deployment</h3><ol> <li>Create <code>Procfile</code>:</li> </ol><pre><code>web: streamlit run app.py --server.port=$PORT
-</code></pre><ol start="2"> <li>Create <code>requirements.txt</code></li> <li>Deploy:</li> </ol><pre><code class="language-bash">heroku create your-app-name
+
+Heroku Deployment
+
+- Create Procfile:
+
+web: streamlit run app.py --server.port=$PORT
+
+- Create requirements.txt
+
+- Deploy:
+
+heroku create your-app-name
 git push heroku main
-</code></pre><h3>AWS Deployment</h3><ol> <li>Launch EC2 instance</li> <li>Install dependencies</li> <li>Clone repository</li> <li>Run with systemd service</li> </ol><h3>Environment Variables</h3><p>Set environment variables for configuration:</p><pre><code class="language-bash">export STREAMLIT_SERVER_PORT=8501
+
+AWS Deployment
+
+- Launch EC2 instance
+
+- Install dependencies
+
+- Clone repository
+
+- Run with systemd service
+
+Environment Variables
+
+Set environment variables for configuration:
+
+export STREAMLIT_SERVER_PORT=8501
 export STREAMLIT_SERVER_ADDRESS=0.0.0.0
-</code></pre><hr><h2>📄 License</h2><p>This project is licensed under the MIT License - see LICENSE file for details.</p><h2>🙏 Acknowledgments</h2><ul> <li>Built with <a href="https://streamlit.io/">Streamlit</a></li> <li>Machine learning powered by <a href="https://scikit-learn.org/">scikit-learn</a></li> <li>Visualizations created with <a href="https://plotly.com/">Plotly</a></li> <li>Data processing with <a href="https://pandas.pydata.org/">Pandas</a></li> </ul><h2>📧 Support</h2><p>For issues, questions, or contributions:</p><ul> <li>Open an issue in the project repository</li> <li>Contact the development team</li> <li>Refer to Streamlit documentation: <a href="https://docs.streamlit.io">https://docs.streamlit.io</a></li> </ul><hr><p><strong>Version</strong>: 1.0.0<br><strong>Last Updated</strong>: 2024<br><strong>Maintained by</strong>: Smart Elevator Monitoring Team</p><p>🛗 <em>Elevating Maintenance Through Intelligence</em></p><p><a href="#-smart-elevator-monitoring-dashboard">⬆ Back to Top</a></p>
+
+📄 License
+
+This project is licensed under the MIT License - see LICENSE file for details.
+
+🙏 Acknowledgments
+
+- Built with Streamlit
+
+- Machine learning powered by scikit-learn
+
+- Visualizations created with Plotly
+
+- Data processing with Pandas
+
+📧 Support
+
+For issues, questions, or contributions:
+
+- Open an issue in the project repository
+
+- Contact the development team
+
+- Refer to Streamlit documentation: https://docs.streamlit.io
+
+Version: 1.0.0
+Last Updated: 2024
+Maintained by: Smart Elevator Monitoring Team
+
+🛗 Elevating Maintenance Through Intelligence
+
+⬆ Back to Top
