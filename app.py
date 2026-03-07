@@ -325,7 +325,7 @@ if mode == "Dashboard Analysis":
     
     fig1.update_layout(
         plot_bgcolor='#f0f9ff',
-        paper_bgcolor='white',
+        paper_bgcolor='black',
         title_font=dict(color='#1e40af', size=20),
         font=dict(color='#1e3a8a')
     )
