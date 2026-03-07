@@ -4,7 +4,7 @@ A comprehensive predictive maintenance dashboard for elevator systems using mach
 
 APP LINK: https://elevatormonitoringsystem.streamlit.app/
 
-Also view https://www.canva.com/design/DAHBvM4ZVOQ/-2Qns1cXDc42NckHA_jscQ/view?utm_content=DAHBvM4ZVOQ&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hf5790a5a6a  for the storyboard
+Storyboard: https://www.canva.com/design/DAHBvM4ZVOQ/-2Qns1cXDc42NckHA_jscQ/view?utm_content=DAHBvM4ZVOQ&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hf5790a5a6a
 
 📋 Table of Contents
 
